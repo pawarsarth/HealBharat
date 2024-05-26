@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .calculator {
+            width: 300px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 30px;
+            background-color: green;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        #display {
+            width: 100%;
+            height: 50px;
+            text-align: right;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 24px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        .btn {
+            height: 50px;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .operator {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="title">SIMPLE CALCULATOR</div>
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button class="btn" onclick="ok(this)">1</button>
+            <button class="btn" onclick="ok(this)">2</button>
+            <button class="btn" onclick="ok(this)">3</button>
+            <button class="btn operator" onclick="ok1(this)">+</button>
+            <button class="btn" onclick="ok(this)">4</button>
+            <button class="btn" onclick="ok(this)">5</button>
+            <button class="btn" onclick="ok(this)">6</button>
+            <button class="btn operator" onclick="ok1(this)">-</button>
+            <button class="btn" onclick="ok(this)">7</button>
+            <button class="btn" onclick="ok(this)">8</button>
+            <button class="btn" onclick="ok(this)">9</button>
+            <button class="btn operator" onclick="ok1(this)">*</button>
+            <button class="btn" onclick="ok(this)">0</button>
+            <button class="btn" onclick="ok(this)">.</button>
+            <button class="btn" id="clear" onclick="clearDisplay()">C</button>
+            <button class="btn operator" id="equal" onclick="cal()">=</button>
+            <button class="btn operator"onclick="ok1(this)">/</button>
+        </div>
+    </div>
+    <script>
+        function ok(button) {
+            const display = document.getElementById("display");
+            display.value += button.textContent;
+        }
+
+        function ok1(but) {
+            const display = document.getElementById("display");
+            display.value += but.textContent;
+        }
+
+        function clearDisplay() {
+            const display = document.getElementById("display");
+            display.value = "";
+        }
+
+        function cal() {
+            const display = document.getElementById("display");
+            const string = display.value;
+            let operand1 = '';
+            let operand2 = '';
+            let operator = '';
+            let isOperatorFound = false;
+
+            for (let i = 0; i < string.length; i++) {
+                const char = string[i];
+
+                if (char === '+' || char === '-' || char === '*' || char === '/') {
+                    operator = char;
+                    isOperatorFound = true;
+                } else if (isOperatorFound) {
+                    operand2 += char;
+                } else {
+                    operand1 += char;
+                }
+            }
+
+            let result;
+            switch (operator) {
+                case '+':
+                    result = parseFloat(operand1) + parseFloat(operand2);
+                    break;
+                case '-':
+                    result = parseFloat(operand1) - parseFloat(operand2);
+                    break;
+                case '*':
+                    result = parseFloat(operand1) * parseFloat(operand2);
+                    break;
+                case '/':
+                    result = parseFloat(operand1) / parseFloat(operand2);
+                    break;
+                default:
+                    result = 'Invalid Operation';
+                    break;
+            }
+
+            display.value = result;
+        }
+    </script>
+</body>
+</html>

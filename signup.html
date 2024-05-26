@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .signup-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        .signup-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+            color: #333;
+        }
+
+        .signup-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .signup-container label {
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .signup-container input {
+            margin-bottom: 15px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .signup-container input#confirmpassword, .signup-container input#phone {
+            height: 50px; /* Adjust height */
+            width: 100%; /* Full width */
+        }
+
+        .signup-container button {
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .signup-container button:hover {
+            background-color: #0056b3;
+        }
+
+        #error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        #login-link {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signup-form" onsubmit="return validateForm()">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            
+            <label for="confirmpassword">Confirm Password</label>
+            <input type="password" id="confirmpassword" name="confirmpassword" required>
+            
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required>
+            
+            <button type="submit">Sign Up</button><br><br>
+            <p id="error-message"></p>
+        </form>
+        <div id="login-link">
+            <a href="login.html">Go to Login Page</a>
+        </div>
+    </div>
+    <script>
+        function validateForm() {
+            const email = document.getElementById("email").value;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const pass = document.getElementById("password").value;
+            const conpass = document.getElementById("confirmpassword").value;
+            const phone = document.getElementById("phone").value;
+            let errorMessage = '';
+
+            if (!emailRegex.test(email)) {
+                errorMessage += 'Invalid email address.<br>';
+            }
+
+            if (pass !== conpass) {
+                errorMessage += 'Passwords do not match.<br>';
+            }
+
+            if (phone.length < 10) {
+                errorMessage += 'Invalid phone number.<br>';
+            }
+
+            if (errorMessage !== '') {
+                document.getElementById('error-message').innerHTML = errorMessage;
+                document.getElementById('error-message').style.display = 'block';
+                document.getElementById('error-message').style.fontSize = '14px';
+                return false;
+            } else {
+                document.getElementById('error-message').innerHTML = '';
+                document.getElementById('login-link').style.display = 'block';
+                return false; // Prevent form submission to show the login link
+            }
+        }
+    </script>
+</body>
+</html>
